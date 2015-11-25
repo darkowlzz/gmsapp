@@ -1,8 +1,6 @@
 package space.darkowlzz.globalmeditationscope;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,17 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private List<MediEvent> events;
-
     public static ImageLoader mImageLoader = null;
+
+    final String HOME = "100";
+
+    String CURRENT_FRAGMENT;
+    EventsFragment eventsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,32 +39,21 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
-        rv.setHasFixedSize(true);
+        if (findViewById(R.id.fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
 
-        initializeData();
+            getSupportActionBar().setTitle("Upcoming GMS Events");
 
-        LinearLayoutManager llm = new LinearLayoutManager(getBaseContext());
-        rv.setLayoutManager(llm);
+            eventsFragment = new EventsFragment();
+            eventsFragment.setArguments(getIntent().getExtras());
 
-        RVAdapter adapter = new RVAdapter(events);
-        rv.setAdapter(adapter);
-    }
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, eventsFragment).commit();
 
-    private void initializeData() {
-        events = new ArrayList<>();
-        Calendar cal = Calendar.getInstance();
-        cal.set(2015, 11, 13, 8, 0);
-        Date date = cal.getTime();
-        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date));
-        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date));
-        events.add(new MediEvent("Dive deep into the hollowness within you with MaxWell", "10 min breathing meditation with MaxWell", "Max Well", date));
-        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date));
-        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date));
-        events.add(new MediEvent("Dive deep into the hollowness within you with MaxWell", "10 min breathing meditation with MaxWell", "Max Well", date));
-        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date));
-        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date));
-        events.add(new MediEvent("Dive deep into the hollowness within you with MaxWell", "10 min breathing meditation with MaxWell", "Max Well", date));
+            CURRENT_FRAGMENT = HOME;
+        }
     }
 
     @Override
