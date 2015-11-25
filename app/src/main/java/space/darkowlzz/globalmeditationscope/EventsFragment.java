@@ -43,14 +43,14 @@ public class EventsFragment extends Fragment {
         Calendar cal = Calendar.getInstance();
         cal.set(2015, 11, 13, 8, 0);
         Date date = cal.getTime();
-        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date));
-        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date));
-        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg", "10 min breathing meditation with MaxWell", "Max Well", date));
-        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date));
-        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date));
-        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg", "10 min breathing meditation with MaxWell", "Max Well", date));
-        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date));
-        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date));
-        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg", "10 min breathing meditation with MaxWell", "Max Well", date));
+        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date, 1));
+        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date, 2));
+        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg", "10 min breathing meditation with MaxWell", "Max Well", date, 3));
+        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date, 4));
+        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date, 5));
+        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg", "10 min breathing meditation with MaxWell", "Max Well", date, 6));
+        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.", "Anita Wing Lee", date, 7));
+        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh", "Amrit Singh", date, 8));
+        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg", "10 min breathing meditation with MaxWell", "Max Well", date, 9));
     }
 }

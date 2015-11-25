@@ -12,12 +12,14 @@ public class MediEvent {
     String hostName;
     Date date = new Date();
     boolean favorite = false;
+    Integer eventID;
 
-    MediEvent(String title, String description, String hostName, Date date) {
+    MediEvent(String title, String description, String hostName, Date date, Integer ID) {
         this.title = title;
         this.description = description;
         this.hostName = hostName;
         this.date = date;
+        this.eventID = ID;
     }
 
     public String getDate() {
