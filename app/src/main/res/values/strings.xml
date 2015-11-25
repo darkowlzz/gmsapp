@@ -5,4 +5,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- Events Fragment -->
+    <string name="events_fragment_title">Upcoming GMS Events</string>
+    
+    
+    <!-- Favorites Fragment -->
+    <string name="favorites_fragment_title">Favorite Events</string>
 </resources>

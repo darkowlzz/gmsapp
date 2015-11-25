@@ -1,6 +1,7 @@
 package space.darkowlzz.globalmeditationscope;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -9,19 +10,24 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static ImageLoader mImageLoader = null;
+    // App constants
+    public static final String ALL_EVENTS = "allEvents";
+    public static final String FAVORITE_EVENTS = "favoriteEvents";
+    public static final String EVENTS_FRAGMENT = "EventsFragment";
+    public static final String FAVORITES_FRAGMENT = "FavoritesFragment";
 
-    final String HOME = "100";
-    final String FAVORITES = "101";
+    public static ImageLoader mImageLoader = null;
 
     String CURRENT_FRAGMENT;
     EventsFragment eventsFragment;
 
     NavigationView navigationView;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +58,7 @@ public class MainActivity extends AppCompatActivity
                 return;
             }
 
-            getSupportActionBar().setTitle("Upcoming GMS Events");
+            getSupportActionBar().setTitle(getString(R.string.events_fragment_title));
 
             eventsFragment = new EventsFragment();
             eventsFragment.setArguments(getIntent().getExtras());
@@ -60,7 +66,15 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, eventsFragment).commit();
 
-            CURRENT_FRAGMENT = HOME;
+            CURRENT_FRAGMENT = EVENTS_FRAGMENT;
+
+            fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 
@@ -101,8 +115,8 @@ public class MainActivity extends AppCompatActivity
         transaction.setCustomAnimations(R.anim.slide_enter, R.anim.slide_exit);
         transaction.replace(R.id.fragment_container, eventsFragment);
         transaction.commit();
-        getSupportActionBar().setTitle("Upcoming GMS Events");
-        CURRENT_FRAGMENT = HOME;
+        getSupportActionBar().setTitle(getString(R.string.events_fragment_title));
+        CURRENT_FRAGMENT = EVENTS_FRAGMENT;
 
         navigationView.getMenu().getItem(0).setChecked(true);
     }
@@ -113,8 +127,8 @@ public class MainActivity extends AppCompatActivity
         transaction.setCustomAnimations(R.anim.slide_enter, R.anim.slide_exit);
         transaction.replace(R.id.fragment_container, favoritesFragment);
         transaction.commit();
-        getSupportActionBar().setTitle("Favorite Events");
-        CURRENT_FRAGMENT = FAVORITES;
+        getSupportActionBar().setTitle(getString(R.string.favorites_fragment_title));
+        CURRENT_FRAGMENT = FAVORITES_FRAGMENT;
 
         navigationView.getMenu().getItem(1).setChecked(true);
     }

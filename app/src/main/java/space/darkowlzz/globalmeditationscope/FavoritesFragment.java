@@ -1,7 +1,6 @@
 package space.darkowlzz.globalmeditationscope;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,14 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by sunny on 25/11/15.
  */
 public class FavoritesFragment extends Fragment {
 
-    private List<MediEvent> favorites;
+    private ArrayList<MediEvent> favorites;
 
     TinyDB tinyDB;
 
@@ -33,9 +31,9 @@ public class FavoritesFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
 
-        favorites = (List) tinyDB.getListObject("favoriteEvents", MediEvent.class);
+        favorites = (ArrayList) tinyDB.getListObject(MainActivity.FAVORITE_EVENTS, MediEvent.class);
 
-        RVAdapter adapter = new RVAdapter(favorites);
+        RVAdapter adapter = new RVAdapter(favorites, MainActivity.FAVORITES_FRAGMENT);
         rv.setAdapter(adapter);
 
         return view;
