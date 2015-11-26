@@ -31,7 +31,6 @@ public class EventsFragment extends Fragment {
         rv.setHasFixedSize(true);
 
         if (tinyDB.getListObject(MainActivity.ALL_EVENTS, MediEvent.class).isEmpty()) {
-            Log.v("F0011", "Initializing...");
             initializeData();
         } else {
             events = (ArrayList) tinyDB.getListObject(MainActivity.ALL_EVENTS, MediEvent.class);

@@ -6,10 +6,20 @@
 
     <string name="action_settings">Settings</string>
 
+    <!-- Categories Fragment -->
+    <string name="categories_fragment_title">GMS Categories</string>
+    <string name="category_1">BREATHE</string>
+    <string name="category_2">MOVE</string>
+    <string name="category_3">LISTEN</string>
+    <string name="category_4">HEAL</string>
+    <string name="category_5">CREATE</string>
+    <string name="category_6">ALL</string>
+
+
     <!-- Events Fragment -->
     <string name="events_fragment_title">Upcoming GMS Events</string>
-    
-    
+
+
     <!-- Favorites Fragment -->
     <string name="favorites_fragment_title">Favorite Events</string>
 </resources>

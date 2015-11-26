@@ -38,12 +38,12 @@ public class CategoriesFragment extends Fragment {
 
     private void initializeData() {
         categories = new ArrayList<>();
-        categories.add(new MediCategory("Breathe", getImage(R.drawable.ic_breathe)));
-        categories.add(new MediCategory("Move", getImage(R.drawable.ic_move)));
-        categories.add(new MediCategory("Listen", getImage(R.drawable.ic_listen)));
-        categories.add(new MediCategory("Heal", getImage(R.drawable.ic_heal)));
-        categories.add(new MediCategory("Create", getImage(R.drawable.ic_create)));
-        categories.add(new MediCategory("All", getImage(R.drawable.ic_globe)));
+        categories.add(new MediCategory(getString(R.string.category_1), getImage(R.drawable.ic_breathe)));
+        categories.add(new MediCategory(getString(R.string.category_2), getImage(R.drawable.ic_move)));
+        categories.add(new MediCategory(getString(R.string.category_3), getImage(R.drawable.ic_listen)));
+        categories.add(new MediCategory(getString(R.string.category_4), getImage(R.drawable.ic_heal)));
+        categories.add(new MediCategory(getString(R.string.category_5), getImage(R.drawable.ic_create)));
+        categories.add(new MediCategory(getString(R.string.category_6), getImage(R.drawable.ic_globe)));
     }
 
     private Drawable getImage(int drawable) {
@@ -52,9 +52,5 @@ public class CategoriesFragment extends Fragment {
         } else {
             return getResources().getDrawable(drawable);
         }
-    }
-
-    public void foo() {
-
     }
 }

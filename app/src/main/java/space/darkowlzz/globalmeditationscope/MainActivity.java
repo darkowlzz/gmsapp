@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity
     public static final String CATEGORIES_FRAGMENT = "CategoriesFragment";
     public static final String CATEGORY_FRAGMENT = "CategoryFragment";
 
+    public static final String BUNDLE_ARG_SELECTED_CATEGORY = "selectedCategory";
+
     public static ImageLoader mImageLoader = null;
 
     public static String CURRENT_FRAGMENT;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity
                 return;
             }
 
-            getSupportActionBar().setTitle("GMS Categories");
+            getSupportActionBar().setTitle(getString(R.string.categories_fragment_title));
 
             categoriesFragment = new CategoriesFragment();
             categoriesFragment.setArguments(getIntent().getExtras());
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity
         transaction.setCustomAnimations(R.anim.slide_enter, R.anim.slide_exit);
         transaction.replace(R.id.fragment_container, categoriesFragment);
         transaction.commit();
-        getSupportActionBar().setTitle("GMS Categories");
+        getSupportActionBar().setTitle(getString(R.string.categories_fragment_title));
         CURRENT_FRAGMENT = CATEGORIES_FRAGMENT;
 
         navigationView.getMenu().getItem(0).setChecked(true);
@@ -171,5 +173,9 @@ public class MainActivity extends AppCompatActivity
             }
         }
         return true;
+    }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 }

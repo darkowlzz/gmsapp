@@ -1,6 +1,7 @@
 package space.darkowlzz.globalmeditationscope;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -46,16 +47,19 @@ public class RVGridAdapter extends RecyclerView.Adapter<RVGridAdapter.CategoryVi
     }
 
     @Override
-    public void onBindViewHolder(CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
         holder.categoryName.setText(itemList.get(position).name);
         holder.categoryImage.setImageDrawable(itemList.get(position).image);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventsFragment eventsFragment = new EventsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(MainActivity.BUNDLE_ARG_SELECTED_CATEGORY, itemList.get(position).name);
+                CategoryFragment categoryFragment = new CategoryFragment();
+                categoryFragment.setArguments(bundle);
                 FragmentTransaction transaction = ((MainActivity)context).getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(R.anim.slide_enter, R.anim.slide_exit);
-                transaction.replace(R.id.fragment_container, eventsFragment);
+                transaction.replace(R.id.fragment_container, categoryFragment);
                 transaction.commit();
                 MainActivity.CURRENT_FRAGMENT = MainActivity.CATEGORY_FRAGMENT;
             }
