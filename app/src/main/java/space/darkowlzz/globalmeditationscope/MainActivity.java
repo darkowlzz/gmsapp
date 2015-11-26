@@ -20,11 +20,12 @@ public class MainActivity extends AppCompatActivity
     public static final String FAVORITE_EVENTS = "favoriteEvents";
     public static final String EVENTS_FRAGMENT = "EventsFragment";
     public static final String FAVORITES_FRAGMENT = "FavoritesFragment";
+    public static final String CATEGORIES_FRAGMENT = "CategoriesFragment";
 
     public static ImageLoader mImageLoader = null;
 
     String CURRENT_FRAGMENT;
-    EventsFragment eventsFragment;
+    CategoriesFragment categoriesFragment;
 
     NavigationView navigationView;
     //FloatingActionButton fab;
@@ -58,25 +59,15 @@ public class MainActivity extends AppCompatActivity
                 return;
             }
 
-            getSupportActionBar().setTitle(getString(R.string.events_fragment_title));
+            getSupportActionBar().setTitle("GMS Categories");
 
-            eventsFragment = new EventsFragment();
-            eventsFragment.setArguments(getIntent().getExtras());
+            categoriesFragment = new CategoriesFragment();
+            categoriesFragment.setArguments(getIntent().getExtras());
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, eventsFragment).commit();
+                    .add(R.id.fragment_container, categoriesFragment).commit();
 
-            CURRENT_FRAGMENT = EVENTS_FRAGMENT;
-
-            /*
-            fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-            */
+            CURRENT_FRAGMENT = CATEGORIES_FRAGMENT;
         }
     }
 
@@ -96,7 +87,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_events) {
+        if (id == R.id.nav_categories) {
+            showCategoriesFragment();
+        } else if (id == R.id.nav_events) {
             showEventsFragment();
         } else if (id == R.id.nav_favorites) {
             showFavoriteFragment();
@@ -111,8 +104,20 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void showCategoriesFragment() {
+        categoriesFragment = new CategoriesFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_enter, R.anim.slide_exit);
+        transaction.replace(R.id.fragment_container, categoriesFragment);
+        transaction.commit();
+        getSupportActionBar().setTitle("GMS Categories");
+        CURRENT_FRAGMENT = CATEGORIES_FRAGMENT;
+
+        navigationView.getMenu().getItem(0).setChecked(true);
+    }
+
     private void showEventsFragment() {
-        eventsFragment = new EventsFragment();
+        EventsFragment eventsFragment = new EventsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_enter, R.anim.slide_exit);
         transaction.replace(R.id.fragment_container, eventsFragment);
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(getString(R.string.events_fragment_title));
         CURRENT_FRAGMENT = EVENTS_FRAGMENT;
 
-        navigationView.getMenu().getItem(0).setChecked(true);
+        navigationView.getMenu().getItem(1).setChecked(true);
     }
 
     private void showFavoriteFragment() {
@@ -132,6 +137,6 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(getString(R.string.favorites_fragment_title));
         CURRENT_FRAGMENT = FAVORITES_FRAGMENT;
 
-        navigationView.getMenu().getItem(1).setChecked(true);
+        navigationView.getMenu().getItem(2).setChecked(true);
     }
 }
