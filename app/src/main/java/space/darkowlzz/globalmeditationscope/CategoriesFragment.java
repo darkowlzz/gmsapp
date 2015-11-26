@@ -53,4 +53,8 @@ public class CategoriesFragment extends Fragment {
             return getResources().getDrawable(drawable);
         }
     }
+
+    public void foo() {
+
+    }
 }

@@ -1,5 +1,6 @@
 package space.darkowlzz.globalmeditationscope;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -18,13 +20,15 @@ public class MainActivity extends AppCompatActivity
     // App constants
     public static final String ALL_EVENTS = "allEvents";
     public static final String FAVORITE_EVENTS = "favoriteEvents";
+
     public static final String EVENTS_FRAGMENT = "EventsFragment";
     public static final String FAVORITES_FRAGMENT = "FavoritesFragment";
     public static final String CATEGORIES_FRAGMENT = "CategoriesFragment";
+    public static final String CATEGORY_FRAGMENT = "CategoryFragment";
 
     public static ImageLoader mImageLoader = null;
 
-    String CURRENT_FRAGMENT;
+    public static String CURRENT_FRAGMENT;
     CategoriesFragment categoriesFragment;
 
     NavigationView navigationView;
@@ -138,5 +142,34 @@ public class MainActivity extends AppCompatActivity
         CURRENT_FRAGMENT = FAVORITES_FRAGMENT;
 
         navigationView.getMenu().getItem(2).setChecked(true);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            switch (CURRENT_FRAGMENT) {
+                case CATEGORIES_FRAGMENT:
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+                    break;
+
+                case CATEGORY_FRAGMENT:
+                    showCategoriesFragment();
+                    break;
+
+                case EVENTS_FRAGMENT:
+                    showCategoriesFragment();
+                    break;
+
+                case FAVORITES_FRAGMENT:
+                    showCategoriesFragment();
+                    break;
+            }
+        }
+        return true;
     }
 }
