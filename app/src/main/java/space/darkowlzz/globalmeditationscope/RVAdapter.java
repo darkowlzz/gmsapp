@@ -62,7 +62,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final EventViewHolder holder, int position) {
+    public void onBindViewHolder(final EventViewHolder holder, final int position) {
         final MediEvent evnt = events.get(position);
 
         holder.title.setText(evnt.title);
@@ -92,7 +92,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
             public void onClick(View v) {
                 ArrayList<MediEvent> allEvents = (ArrayList) tinyDB.getListObject(MainActivity.ALL_EVENTS, MediEvent.class);
                 ArrayList<MediEvent> favEvents = (ArrayList) tinyDB.getListObject(MainActivity.FAVORITE_EVENTS, MediEvent.class);
-                
+
                 int index = findIndexOfEvent(evnt.eventID, allEvents);
 
                 if (evnt.favorite) {
@@ -104,6 +104,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
                     }
                     evnt.favorite = !evnt.favorite;
                     favEvents.remove(findIndexOfEvent(evnt.eventID, favEvents));
+                    if (fragmentName == MainActivity.FAVORITES_FRAGMENT) {
+                        // remove the card in runtime with animation
+                        removeAt(position);
+                    }
                 } else  {
                     // Add to favorite events
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -118,10 +122,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
                 allEvents.set(index, evnt);
                 tinyDB.putListObject(MainActivity.FAVORITE_EVENTS, favEvents);
                 tinyDB.putListObject(MainActivity.ALL_EVENTS, allEvents);
-
-                if (fragmentName == MainActivity.FAVORITES_FRAGMENT) {
-                    // remove the card in runtime with animation
-                }
             }
         });
     }
@@ -143,5 +143,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
             }
         }
         return -1;
+    }
+
+    // Remove element from recyclerView
+    public void removeAt(int position) {
+        events.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, events.size());
     }
 }

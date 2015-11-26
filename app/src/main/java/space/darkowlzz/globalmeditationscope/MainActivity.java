@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     EventsFragment eventsFragment;
 
     NavigationView navigationView;
-    FloatingActionButton fab;
+    //FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity
 
             CURRENT_FRAGMENT = EVENTS_FRAGMENT;
 
+            /*
             fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity
 
                 }
             });
+            */
         }
     }
 
