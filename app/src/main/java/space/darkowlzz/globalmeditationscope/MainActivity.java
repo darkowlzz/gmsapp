@@ -9,12 +9,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity
     // App constants
     public static final String ALL_EVENTS = "allEvents";
     public static final String FAVORITE_EVENTS = "favoriteEvents";
+    public static final String REMINDER_COUNTER = "reminderCounter";
 
     public static final String EVENTS_FRAGMENT = "EventsFragment";
     public static final String FAVORITES_FRAGMENT = "FavoritesFragment";
@@ -188,27 +188,57 @@ public class MainActivity extends AppCompatActivity
 
     private void initializeData() {
         events = new ArrayList<MediEvent>();
-        Calendar cal = Calendar.getInstance();
-        cal.set(2015, 11, 13, 8, 0);
-        Date date = cal.getTime();
-        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.",
-                "Anita Wing Lee", MainActivity.Category.HEAL, date, 1));
-        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh",
-                "Amrit Singh", MainActivity.Category.CREATE, date, 2));
-        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg",
-                "10 min breathing meditation with MaxWell", "Max Well", MainActivity.Category.BREATHE, date, 3));
-        events.add(new MediEvent("Music with Nadia Hoske", "Relax and enjoy the music.",
-                "Nadia Hoske", MainActivity.Category.LISTEN, date, 4));
-        events.add(new MediEvent("Move your body with the yoga girl", "Light yoga session with the yoga girl",
-                "Yoga Girl", MainActivity.Category.MOVE, date, 5));
-        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg",
-                "10 min breathing meditation with MaxWell", "Max Well", MainActivity.Category.BREATHE, date, 6));
-        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.",
-                "Anita Wing Lee", MainActivity.Category.HEAL, date, 7));
-        events.add(new MediEvent("Music with Nadia Hoske", "Relax and enjoy the music.",
-                "Nadia Hoske", MainActivity.Category.LISTEN, date, 8));
-        events.add(new MediEvent("Move your body with the yoga girl", "Light yoga session with the yoga girl",
-                "Yoga Girl", MainActivity.Category.MOVE, date, 9));
+        MediEvent mediEvent;
+        //Calendar cal = Calendar.getInstance();
+        //cal.set(2015, 11, 13, 8, 0);
+        DateTime date = new DateTime(2015, 11, 28, 15, 56);
+        //Date date = cal.getTime();
+        mediEvent = new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.",
+                "Anita Wing Lee", "anitawinglee", "anitawinglee", MainActivity.Category.HEAL, 1);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
+
+        mediEvent = new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh",
+                "Amrit Singh", "mr.a.singh", "mr.a.singh", MainActivity.Category.CREATE, 2);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
+
+        mediEvent = new MediEvent("Dive deep into the hollowness within you with Max Goldberg",
+                "10 min breathing meditation with MaxWell", "Max Goldberg",
+                "maxgoldberg", "maxgoldberg", MainActivity.Category.BREATHE, 3);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
+
+        mediEvent = new MediEvent("Music with Nadia Hoske", "Relax and enjoy the music.",
+                "Nadia Hoske", "nadiahoske", "nadiahoske", MainActivity.Category.LISTEN, 4);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
+
+        mediEvent = new MediEvent("Move your body with the yoga girl", "Light yoga session with the yoga girl",
+                "Yoga Girl", "oneinyoga", "oneinyoga", MainActivity.Category.MOVE, 5);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
+
+        mediEvent = new MediEvent("Dive deep into the hollowness within you with Max Goldberg",
+                "10 min breathing meditation with MaxWell", "Max Goldberg", "maxgoldberg",
+                "maxgoldberg", MainActivity.Category.BREATHE, 6);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
+
+        mediEvent = new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.",
+                "Anita Wing Lee", "anitawinglee", "anitawinglee", MainActivity.Category.HEAL, 7);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
+
+        mediEvent = new MediEvent("Music with Nadia Hoske", "Relax and enjoy the music.",
+                "Nadia Hoske", "nadiahoske", "nadiahoske", MainActivity.Category.LISTEN, 8);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
+
+        mediEvent = new MediEvent("Move your body with the yoga girl", "Light yoga session with the yoga girl",
+                "Yoga Girl", "oneinyoga", "oneinyoga", MainActivity.Category.MOVE, 9);
+        mediEvent.setTime(date);
+        events.add(mediEvent);
 
         tinyDB.putListObject(MainActivity.ALL_EVENTS, events);
     }

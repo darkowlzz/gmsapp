@@ -1,7 +1,8 @@
 package space.darkowlzz.globalmeditationscope;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import space.darkowlzz.globalmeditationscope.MainActivity.Category;
 
@@ -12,27 +13,51 @@ public class MediEvent {
     String title;
     String description;
     String hostName;
+    String periHandle;
+    String twitterHandle;
     Category category;
-    Date date = new Date();
+    Integer year, month, day, hour,minute;
     boolean favorite = false;
     Integer eventID;
 
-    MediEvent(String title, String description, String hostName, Category category, Date date, Integer ID) {
+    MediEvent(String title, String description, String hostName, String periHandle,
+              String twitterHandle, Category category, Integer ID) {
         this.title = title;
         this.description = description;
         this.hostName = hostName;
+        this.periHandle = periHandle;
+        this.twitterHandle = twitterHandle;
         this.category = category;
-        this.date = date;
         this.eventID = ID;
     }
 
+    public void setTime(DateTime date) {
+        this.year = date.getYear();
+        this.month = date.getMonthOfYear();
+        this.day = date.getDayOfMonth();
+        this.hour = date.getHourOfDay();
+        this.minute = date.getMinuteOfHour();
+    }
+
+    public DateTime getDateObj() {
+        return new DateTime(year, month, day, hour, minute);
+    }
+
     public String getDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
-        return sdf.format(date);
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd MMMM yyyy");
+        return dtf.print(getDateObj());
     }
 
     public String getTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        return sdf.format(date);
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("HH:mm");
+        return dtf.print(getDateObj());
+    }
+
+    public String getPeriUri() {
+        return "https://www.periscope.tv/" + periHandle;
+    }
+
+    public String getTwitterUri() {
+        return "https://twitter.com/" + twitterHandle;
     }
 }

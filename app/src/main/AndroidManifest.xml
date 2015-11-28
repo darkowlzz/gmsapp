@@ -23,6 +23,8 @@
                 android:value=".SearchResultsActivity" />
         </activity>
 
+        <service android:name=".MediNotificationService" />
+
         <activity android:name=".SearchResultsActivity"
             android:label="Search Results"
             android:launchMode="singleTop">
