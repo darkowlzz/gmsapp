@@ -2,7 +2,6 @@ package space.darkowlzz.globalmeditationscope;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -12,7 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,12 +28,19 @@ public class MainActivity extends AppCompatActivity
     public static final String CATEGORIES_FRAGMENT = "CategoriesFragment";
     public static final String CATEGORY_FRAGMENT = "CategoryFragment";
 
+    public static enum Category {
+        BREATHE, MOVE, LISTEN, HEAL, CREATE, ALL
+    };
+
     public static final String BUNDLE_ARG_SELECTED_CATEGORY = "selectedCategory";
 
     public static ImageLoader mImageLoader = null;
 
     public static String CURRENT_FRAGMENT;
     CategoriesFragment categoriesFragment;
+    private ArrayList<MediEvent> events;
+
+    TinyDB tinyDB;
 
     NavigationView navigationView;
     //FloatingActionButton fab;
@@ -49,6 +58,12 @@ public class MainActivity extends AppCompatActivity
 
         if (mImageLoader == null) {
             mImageLoader = new ImageLoader(getApplicationContext());
+        }
+
+        tinyDB = new TinyDB(getBaseContext());
+
+        if (tinyDB.getListObject(MainActivity.ALL_EVENTS, MediEvent.class).isEmpty()) {
+            initializeData();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -83,7 +98,28 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
+            switch (CURRENT_FRAGMENT) {
+                case CATEGORIES_FRAGMENT:
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+                    break;
+
+                case CATEGORY_FRAGMENT:
+                    showCategoriesFragment();
+                    break;
+
+                case EVENTS_FRAGMENT:
+                    showCategoriesFragment();
+                    break;
+
+                case FAVORITES_FRAGMENT:
+                    showCategoriesFragment();
+                    break;
+            }
         }
     }
 
@@ -146,36 +182,34 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().getItem(2).setChecked(true);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-            switch (CURRENT_FRAGMENT) {
-                case CATEGORIES_FRAGMENT:
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
-                    break;
-
-                case CATEGORY_FRAGMENT:
-                    showCategoriesFragment();
-                    break;
-
-                case EVENTS_FRAGMENT:
-                    showCategoriesFragment();
-                    break;
-
-                case FAVORITES_FRAGMENT:
-                    showCategoriesFragment();
-                    break;
-            }
-        }
-        return true;
-    }
-
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    private void initializeData() {
+        events = new ArrayList<MediEvent>();
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 11, 13, 8, 0);
+        Date date = cal.getTime();
+        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.",
+                "Anita Wing Lee", MainActivity.Category.HEAL, date, 1));
+        events.add(new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh",
+                "Amrit Singh", MainActivity.Category.CREATE, date, 2));
+        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg",
+                "10 min breathing meditation with MaxWell", "Max Well", MainActivity.Category.BREATHE, date, 3));
+        events.add(new MediEvent("Music with Nadia Hoske", "Relax and enjoy the music.",
+                "Nadia Hoske", MainActivity.Category.LISTEN, date, 4));
+        events.add(new MediEvent("Move your body with the yoga girl", "Light yoga session with the yoga girl",
+                "Yoga Girl", MainActivity.Category.MOVE, date, 5));
+        events.add(new MediEvent("Dive deep into the hollowness within you with Max Goldberg",
+                "10 min breathing meditation with MaxWell", "Max Well", MainActivity.Category.BREATHE, date, 6));
+        events.add(new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.",
+                "Anita Wing Lee", MainActivity.Category.HEAL, date, 7));
+        events.add(new MediEvent("Music with Nadia Hoske", "Relax and enjoy the music.",
+                "Nadia Hoske", MainActivity.Category.LISTEN, date, 8));
+        events.add(new MediEvent("Move your body with the yoga girl", "Light yoga session with the yoga girl",
+                "Yoga Girl", MainActivity.Category.MOVE, date, 9));
+
+        tinyDB.putListObject(MainActivity.ALL_EVENTS, events);
     }
 }

@@ -3,6 +3,8 @@ package space.darkowlzz.globalmeditationscope;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import space.darkowlzz.globalmeditationscope.MainActivity.Category;
+
 /**
  * Created by sunny on 24/11/15.
  */
@@ -10,14 +12,16 @@ public class MediEvent {
     String title;
     String description;
     String hostName;
+    Category category;
     Date date = new Date();
     boolean favorite = false;
     Integer eventID;
 
-    MediEvent(String title, String description, String hostName, Date date, Integer ID) {
+    MediEvent(String title, String description, String hostName, Category category, Date date, Integer ID) {
         this.title = title;
         this.description = description;
         this.hostName = hostName;
+        this.category = category;
         this.date = date;
         this.eventID = ID;
     }
