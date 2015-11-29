@@ -22,4 +22,23 @@
 
     <!-- Favorites Fragment -->
     <string name="favorites_fragment_title">Favorite Events</string>
+
+    <!-- Introduction Slides Strings -->
+    <string name="page1_title">Welcome to Global Meditation Scope</string>
+    <string name="page1_desc">12-13 December, 2015</string>
+
+    <string name="page2_title">All of GMS in a single place</string>
+    <string name="page2_desc">Find the GMS hosts and meditations.</string>
+
+    <string name="page3_title">Find meditation by their categories</string>
+    <string name="page3_desc">All the GMS broadcasts separated into categories.</string>
+
+    <string name="page4_title">Favorite broadcasts</string>
+    <string name="page4_desc">Mark broadcasts as favorite and get reminder notification when the broadcasts start.</string>
+
+    <string name="page5_title">Broadcast time in your time zone</string>
+    <string name="page5_desc">Broadcast time are automatically converted to your time zone.</string>
+
+    <string name="page6_title">Explore, Meditate and Enjoy</string>
+    <string name="page6_desc">There\'s a lot to explore.</string>
 </resources>

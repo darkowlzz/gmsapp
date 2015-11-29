@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -49,7 +51,9 @@ public class RVGridAdapter extends RecyclerView.Adapter<RVGridAdapter.CategoryVi
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, final int position) {
         holder.categoryName.setText(itemList.get(position).name);
-        holder.categoryImage.setImageDrawable(itemList.get(position).image);
+        Picasso.with(context)
+                .load(itemList.get(position).image)
+                .into(holder.categoryImage);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

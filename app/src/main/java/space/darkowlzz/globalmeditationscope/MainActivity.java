@@ -137,6 +137,9 @@ public class MainActivity extends AppCompatActivity
             showEventsFragment();
         } else if (id == R.id.nav_favorites) {
             showFavoriteFragment();
+        } else if (id == R.id.nav_intro) {
+            Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about_gms) {
 
         } else if (id == R.id.nav_about_medi) {

@@ -17,8 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by sunny on 24/11/15.
@@ -34,7 +38,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         CardView cv;
         TextView title, description;
         TextView hostName, date, time;
-        ImageView image, peri, twitter;
+        ImageView peri, twitter;
+        CircleImageView image;
         final ImageView fav;
 
         EventViewHolder(View itemView) {
@@ -45,7 +50,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
             hostName = (TextView) itemView.findViewById(R.id.host_name);
             time = (TextView) itemView.findViewById(R.id.time);
             date = (TextView) itemView.findViewById(R.id.date);
-            image = (ImageView) itemView.findViewById(R.id.event_image);
+            image = (CircleImageView) itemView.findViewById(R.id.event_image);
             fav = (ImageView) itemView.findViewById(R.id.fav);
             peri = (ImageView) itemView.findViewById(R.id.peri);
             twitter = (ImageView) itemView.findViewById(R.id.twitter);
@@ -76,8 +81,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         holder.hostName.setText(evnt.hostName);
         holder.time.setText(evnt.getTime());
         holder.date.setText(evnt.getDate());
-        MainActivity.mImageLoader.displayImage("", holder.image);
-
+        //MainActivity.mImageLoader.displayImage("", holder.image);
+        Picasso.with(ctx)
+                .load("https://twitter.com/" + evnt.twitterHandle + "/profile_image?size=original")
+                .placeholder(R.drawable.gms_logo)
+                .into(holder.image);
 
         if (evnt.favorite) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

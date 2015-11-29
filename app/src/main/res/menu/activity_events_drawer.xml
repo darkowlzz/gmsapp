@@ -22,6 +22,8 @@
                 android:title="Global Meditation Scope" />
             <item android:id="@+id/nav_about_medi"
                 android:title="Meditation" />
+            <item android:id="@+id/nav_intro"
+                android:title="App Intro" />
         </menu>
     </item>
 

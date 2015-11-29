@@ -7,9 +7,9 @@ import android.graphics.drawable.Drawable;
  */
 public class MediCategory {
     String name;
-    Drawable image;
+    int image;
 
-    MediCategory(String name, Drawable image) {
+    MediCategory(String name, int image) {
         this.name = name;
         this.image = image;
     }

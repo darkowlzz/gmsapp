@@ -39,12 +39,12 @@ public class CategoriesFragment extends Fragment {
 
     private void initializeData() {
         categories = new ArrayList<>();
-        categories.add(new MediCategory(getString(R.string.category_1), getImage(R.drawable.ic_breathe)));
-        categories.add(new MediCategory(getString(R.string.category_2), getImage(R.drawable.ic_move)));
-        categories.add(new MediCategory(getString(R.string.category_3), getImage(R.drawable.ic_listen)));
-        categories.add(new MediCategory(getString(R.string.category_4), getImage(R.drawable.ic_heal)));
-        categories.add(new MediCategory(getString(R.string.category_5), getImage(R.drawable.ic_create)));
-        categories.add(new MediCategory(getString(R.string.category_6), getImage(R.drawable.ic_globe)));
+        categories.add(new MediCategory(getString(R.string.category_1), R.drawable.ic_breathe));
+        categories.add(new MediCategory(getString(R.string.category_2), R.drawable.ic_move));
+        categories.add(new MediCategory(getString(R.string.category_3), R.drawable.ic_listen));
+        categories.add(new MediCategory(getString(R.string.category_4), R.drawable.ic_heal));
+        categories.add(new MediCategory(getString(R.string.category_5), R.drawable.ic_create));
+        categories.add(new MediCategory(getString(R.string.category_6), R.drawable.ic_globe));
     }
 
     private Drawable getImage(int drawable) {
