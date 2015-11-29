@@ -1,8 +1,14 @@
 package space.darkowlzz.globalmeditationscope;
 
+import android.text.format.Time;
+import android.util.Log;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Locale;
+import java.util.TimeZone;
 
 import space.darkowlzz.globalmeditationscope.MainActivity.Category;
 
@@ -43,14 +49,19 @@ public class MediEvent {
         return new DateTime(year, month, day, hour, minute);
     }
 
+    public DateTime getLocalDateObj() {
+        String timezone = TimeZone.getDefault().getID();
+        return MainActivity.convertTimeZone(getDateObj().toLocalDateTime(), "EST", timezone);
+    }
+
     public String getDate() {
         DateTimeFormatter dtf = DateTimeFormat.forPattern("dd MMMM yyyy");
-        return dtf.print(getDateObj());
+        return dtf.print(getLocalDateObj());
     }
 
     public String getTime() {
-        DateTimeFormatter dtf = DateTimeFormat.forPattern("HH:mm");
-        return dtf.print(getDateObj());
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("hh:mm a");
+        return dtf.print(getLocalDateObj());
     }
 
     public String getPeriUri() {

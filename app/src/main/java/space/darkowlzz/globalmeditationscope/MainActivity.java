@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 
@@ -189,57 +191,68 @@ public class MainActivity extends AppCompatActivity
     private void initializeData() {
         events = new ArrayList<MediEvent>();
         MediEvent mediEvent;
-        //Calendar cal = Calendar.getInstance();
-        //cal.set(2015, 11, 13, 8, 0);
-        DateTime date = new DateTime(2015, 11, 28, 15, 56);
-        //Date date = cal.getTime();
+        DateTime date = new DateTime(2015, 11, 28, 7, 35);
         mediEvent = new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.",
                 "Anita Wing Lee", "anitawinglee", "anitawinglee", MainActivity.Category.HEAL, 1);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
+        date = new DateTime(2015, 11, 29, 6, 0);
         mediEvent = new MediEvent("Sketch with Mr. A. Singh", "Let out your creativity with @Mr. A. Singh",
-                "Amrit Singh", "mr.a.singh", "mr.a.singh", MainActivity.Category.CREATE, 2);
+                "Amrit Singh", "MrASingh", "MrASingh", MainActivity.Category.CREATE, 2);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
+        date = new DateTime(2015, 11, 29, 16, 35);
         mediEvent = new MediEvent("Dive deep into the hollowness within you with Max Goldberg",
                 "10 min breathing meditation with MaxWell", "Max Goldberg",
-                "maxgoldberg", "maxgoldberg", MainActivity.Category.BREATHE, 3);
+                "livingmaxwell", "livingmaxwell", MainActivity.Category.BREATHE, 3);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
-        mediEvent = new MediEvent("Music with Nadia Hoske", "Relax and enjoy the music.",
-                "Nadia Hoske", "nadiahoske", "nadiahoske", MainActivity.Category.LISTEN, 4);
+        date = new DateTime(2015, 11, 28, 15, 53);
+        mediEvent = new MediEvent("Music with Nadia Hosko", "Relax and enjoy the music.",
+                "Nadia Hoske", "nadiahosko", "nadiahosko", MainActivity.Category.LISTEN, 4);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
-        mediEvent = new MediEvent("Move your body with the yoga girl", "Light yoga session with the yoga girl",
-                "Yoga Girl", "oneinyoga", "oneinyoga", MainActivity.Category.MOVE, 5);
+        date = new DateTime(2015, 11, 28, 15, 56);
+        mediEvent = new MediEvent("Move your body with Jennifer Wicks", "Light yoga session with Jennifer Wicks",
+                "Jennifer Wicks", "oneinyoga", "oneinyoga", MainActivity.Category.MOVE, 5);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
+        date = new DateTime(2015, 11, 28, 15, 56);
         mediEvent = new MediEvent("Dive deep into the hollowness within you with Max Goldberg",
-                "10 min breathing meditation with MaxWell", "Max Goldberg", "maxgoldberg",
-                "maxgoldberg", MainActivity.Category.BREATHE, 6);
+                "10 min breathing meditation with MaxWell", "Max Goldberg", "livingmaxwell",
+                "livingmaxwell", MainActivity.Category.BREATHE, 6);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
+        date = new DateTime(2015, 11, 28, 15, 56);
         mediEvent = new MediEvent("Morning with Anita Wing Lee", "Light guided meditation with Anita.",
                 "Anita Wing Lee", "anitawinglee", "anitawinglee", MainActivity.Category.HEAL, 7);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
-        mediEvent = new MediEvent("Music with Nadia Hoske", "Relax and enjoy the music.",
-                "Nadia Hoske", "nadiahoske", "nadiahoske", MainActivity.Category.LISTEN, 8);
+        date = new DateTime(2015, 11, 28, 15, 56);
+        mediEvent = new MediEvent("Music with Nadia Hosko", "Relax and enjoy the music.",
+                "Nadia Hoske", "nadiahosko", "nadiahosko", MainActivity.Category.LISTEN, 8);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
-        mediEvent = new MediEvent("Move your body with the yoga girl", "Light yoga session with the yoga girl",
-                "Yoga Girl", "oneinyoga", "oneinyoga", MainActivity.Category.MOVE, 9);
+        date = new DateTime(2015, 11, 28, 15, 56);
+        mediEvent = new MediEvent("Move your body with Jennifer Wicks", "Light yoga session with Jennifer Wicks",
+                "Jennifer Wicks", "oneinyoga", "oneinyoga", MainActivity.Category.MOVE, 9);
         mediEvent.setTime(date);
         events.add(mediEvent);
 
         tinyDB.putListObject(MainActivity.ALL_EVENTS, events);
+    }
+
+    public static DateTime convertTimeZone(LocalDateTime date, String sourceTimeZone, String destTimeZone) {
+        DateTime srcDateTime = date.toDateTime(DateTimeZone.forID(sourceTimeZone));
+        DateTime dstDateTime = srcDateTime.withZone(DateTimeZone.forID(destTimeZone));
+        return dstDateTime.toLocalDateTime().toDateTime();
     }
 }

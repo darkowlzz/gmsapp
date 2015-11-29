@@ -191,9 +191,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         PendingIntent pendingIntent = PendingIntent.getService(ctx, mediEvent.eventID, intent, 0);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, mediEvent.getDateObj().getMillis(), pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, mediEvent.getLocalDateObj().getMillis(), pendingIntent);
         } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, mediEvent.getDateObj().getMillis(), pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, mediEvent.getLocalDateObj().getMillis(), pendingIntent);
         }
 
         Toast.makeText(ctx, "Reminder set!", Toast.LENGTH_SHORT).show();
