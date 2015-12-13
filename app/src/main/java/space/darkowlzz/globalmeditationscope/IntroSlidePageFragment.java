@@ -1,11 +1,13 @@
 package space.darkowlzz.globalmeditationscope;
 
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -42,18 +44,26 @@ public class IntroSlidePageFragment extends Fragment {
         final ScrollView scrollView = (ScrollView) rootView.findViewById(R.id.content);
         String title = null;
         String desc = null;
+        Drawable image = null;
 
         switch (mPageNumber) {
             case 0:
                 title = getString(R.string.page1_title);
                 desc = getString(R.string.page1_desc);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    image = getResources().getDrawable(R.drawable.gms_logo_large, getContext().getTheme());
+                } else {
+                    image = getResources().getDrawable(R.drawable.gms_logo_large);
+                }
                 break;
             case 1:
                 title = getString(R.string.page2_title);
                 desc = getString(R.string.page2_desc);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    image = getResources().getDrawable(R.drawable.intro1, getContext().getTheme());
                     scrollView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark, getActivity().getTheme()));
                 } else {
+                    image = getResources().getDrawable(R.drawable.intro1);
                     scrollView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 }
                 break;
@@ -61,26 +71,32 @@ public class IntroSlidePageFragment extends Fragment {
                 title = getString(R.string.page3_title);
                 desc = getString(R.string.page3_desc);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    scrollView.setBackgroundColor(getResources().getColor(R.color.green, getActivity().getTheme()));
+                    image = getResources().getDrawable(R.drawable.intro2, getContext().getTheme());
+                    scrollView.setBackgroundColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
                 } else {
-                    scrollView.setBackgroundColor(getResources().getColor(R.color.green));
+                    image = getResources().getDrawable(R.drawable.intro2);
+                    scrollView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 }
                 break;
             case 3:
                 title = getString(R.string.page4_title);
                 desc = getString(R.string.page4_desc);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    scrollView.setBackgroundColor(getResources().getColor(R.color.colorAccent, getActivity().getTheme()));
+                    image = getResources().getDrawable(R.drawable.intro3, getContext().getTheme());
+                    scrollView.setBackgroundColor(getResources().getColor(R.color.green, getActivity().getTheme()));
                 } else {
-                    scrollView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    image = getResources().getDrawable(R.drawable.intro3);
+                    scrollView.setBackgroundColor(getResources().getColor(R.color.green));
                 }
                 break;
             case 4:
                 title = getString(R.string.page5_title);
                 desc = getString(R.string.page5_desc);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    image = getResources().getDrawable(R.drawable.intro4, getContext().getTheme());
                     scrollView.setBackgroundColor(getResources().getColor(R.color.colorPrimary, getActivity().getTheme()));
                 } else {
+                    image = getResources().getDrawable(R.drawable.intro4);
                     scrollView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 }
                 break;
@@ -88,8 +104,10 @@ public class IntroSlidePageFragment extends Fragment {
                 title = getString(R.string.page6_title);
                 desc = getString(R.string.page6_desc);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    image = getResources().getDrawable(R.drawable.intro5, getContext().getTheme());
                     scrollView.setBackgroundColor(getResources().getColor(R.color.green, getActivity().getTheme()));
                 } else {
+                    image = getResources().getDrawable(R.drawable.intro5);
                     scrollView.setBackgroundColor(getResources().getColor(R.color.green));
                 }
             default:
@@ -98,6 +116,7 @@ public class IntroSlidePageFragment extends Fragment {
 
         ((TextView) rootView.findViewById(R.id.text1)).setText(title);
         ((TextView) rootView.findViewById(R.id.description)).setText(desc);
+        ((ImageView) rootView.findViewById(R.id.intro_image)).setImageDrawable(image);
 
         return rootView;
     }

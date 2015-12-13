@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="space.darkowlzz.globalmeditationscope.AboutGmsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <!--
+    <TextView
+        android:id="@+id/mainText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Large"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/about_gms_title"
+        android:layout_margin="10dp"/>
+        -->
+
+    <ImageView
+        android:id="@+id/gms_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal" />
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:elevation="5dp"
+        card_view:cardBackgroundColor="@color/colorSecondary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/about_gms_content"
+            android:textColor="@color/white"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_margin="10dp"
+            card_view:cardCornerRadius="4dp"
+            />
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/web_link"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/peri_link"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/twitter_link"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>

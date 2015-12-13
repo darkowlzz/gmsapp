@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GlobalMeditationScope.iml" filepath="$PROJECT_DIR$/GlobalMeditationScope.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gsheets2a/gsheets2a.iml" filepath="$PROJECT_DIR$/gsheets2a/gsheets2a.iml" />
     </modules>
   </component>
 </project>

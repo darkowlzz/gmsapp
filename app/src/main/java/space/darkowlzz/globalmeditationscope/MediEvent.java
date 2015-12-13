@@ -22,12 +22,12 @@ public class MediEvent {
     String periHandle;
     String twitterHandle;
     Category category;
-    Integer year, month, day, hour,minute;
+    Integer year, month, day, hour, minute;
     boolean favorite = false;
     Integer eventID;
 
-    MediEvent(String title, String description, String hostName, String periHandle,
-              String twitterHandle, Category category, Integer ID) {
+    MediEvent(Integer ID, String title, String description, String hostName, String periHandle,
+              String twitterHandle, Category category) {
         this.title = title;
         this.description = description;
         this.hostName = hostName;

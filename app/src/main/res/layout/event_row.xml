@@ -28,14 +28,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        app:civ_border_width="5dp"
-                        app:civ_border_color="@color/colorSecondary"
+                    <ImageView
                         android:id="@+id/event_image"
-                        android:layout_width="match_parent"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:padding="5dp"/>
+                        android:layout_marginLeft="5dp"
+                        android:padding="5dp"
+                        android:layout_centerHorizontal="true"/>
 
                 </RelativeLayout>
 
@@ -56,21 +55,36 @@
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
                             android:text="Host Name"
-                            style="@android:style/TextAppearance.Medium"/>
+                            style="@android:style/TextAppearance.Medium"
+                            android:layout_gravity="center_horizontal" />
+
                         <TextView
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
                             android:text="08:00 UTC"
-                            style="@android:style/TextAppearance.Medium"/>
+                            style="@android:style/TextAppearance.Small"
+                            android:layout_gravity="center_horizontal"/>
                         <TextView
                             android:id="@+id/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/white"
                             android:text="12 December"
-                            style="@android:style/TextAppearance.Medium"/>
+                            style="@android:style/TextAppearance.Small"
+                            android:layout_gravity="center_horizontal"/>
+
+                        <!--
+                        <TextView
+                            android:id="@+id/timezone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/white"
+                            android:text="Unknown Timezone"
+                            android:layout_gravity="center_horizontal"
+                            style="@android:style/TextAppearance.Small"/>
+                            -->
 
                     </LinearLayout>
 
@@ -84,12 +98,14 @@
                 android:padding="16dp"
                 android:orientation="vertical">
 
+                <!--
                 <TextView
                     android:id="@+id/event_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Event Title"
                     style="@android:style/TextAppearance.Medium"/>
+                    -->
 
                 <TextView
                     android:id="@+id/event_description"

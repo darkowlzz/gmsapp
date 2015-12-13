@@ -32,7 +32,8 @@ public class MediNotificationService extends IntentService {
 
         mBuilder = new NotificationCompat.Builder(getApplicationContext())
                 .setContentTitle("GMS: " + extras.getString("eventHost") + " is Live!")
-                .setContentText(extras.getString("eventTitle"))
+                //.setContentText(extras.getString("eventTitle"))
+                .setContentText("Touch to view.")
                 .setTicker("GMS Live")
                 .setWhen(System.currentTimeMillis())
                 .setDefaults(Notification.DEFAULT_SOUND)

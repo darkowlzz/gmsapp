@@ -19,10 +19,10 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by sunny on 24/11/15.
@@ -39,18 +39,19 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         TextView title, description;
         TextView hostName, date, time;
         ImageView peri, twitter;
-        CircleImageView image;
+        //CircleImageView image;
+        ImageView image;
         final ImageView fav;
 
         EventViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cv);
-            title = (TextView) itemView.findViewById(R.id.event_title);
+            //title = (TextView) itemView.findViewById(R.id.event_title);
             description = (TextView) itemView.findViewById(R.id.event_description);
             hostName = (TextView) itemView.findViewById(R.id.host_name);
             time = (TextView) itemView.findViewById(R.id.time);
             date = (TextView) itemView.findViewById(R.id.date);
-            image = (CircleImageView) itemView.findViewById(R.id.event_image);
+            image = (ImageView) itemView.findViewById(R.id.event_image);
             fav = (ImageView) itemView.findViewById(R.id.fav);
             peri = (ImageView) itemView.findViewById(R.id.peri);
             twitter = (ImageView) itemView.findViewById(R.id.twitter);
@@ -76,7 +77,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     public void onBindViewHolder(final EventViewHolder holder, final int position) {
         final MediEvent evnt = events.get(position);
 
-        holder.title.setText(evnt.title);
+        //holder.title.setText(evnt.title);
         holder.description.setText(evnt.description);
         holder.hostName.setText(evnt.hostName);
         holder.time.setText(evnt.getTime());
@@ -84,7 +85,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         //MainActivity.mImageLoader.displayImage("", holder.image);
         Picasso.with(ctx)
                 .load("https://twitter.com/" + evnt.twitterHandle + "/profile_image?size=original")
-                .placeholder(R.drawable.gms_logo)
+                .placeholder(R.drawable.gms_logo).fit()
                 .into(holder.image);
 
         if (evnt.favorite) {
@@ -138,6 +139,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
                         // remove the card in runtime with animation
                         removeAt(position);
                     }
+                    removeReminder(evnt);
                 } else  {
                     // Add to favorite events
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -184,26 +186,43 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
     }
 
     public void setReminder(MediEvent mediEvent) {
-        int reminderCount = tinyDB.getInt(MainActivity.REMINDER_COUNTER) + 1;
-        tinyDB.putInt(MainActivity.REMINDER_COUNTER, reminderCount);
+        DateTime now = new DateTime();
 
-        Intent intent = new Intent(ctx, MediNotificationService.class);
-        Bundle dataBundle = new Bundle();
-        dataBundle.putInt("eventID", mediEvent.eventID);
-        dataBundle.putString("eventTitle", mediEvent.title);
-        dataBundle.putString("eventHost", mediEvent.hostName);
-        dataBundle.putString("eventURI", mediEvent.getPeriUri());
-        intent.putExtras(dataBundle);
-
-        AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getService(ctx, mediEvent.eventID, intent, 0);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, mediEvent.getLocalDateObj().getMillis(), pendingIntent);
+        if (mediEvent.getLocalDateObj().isBefore(now)) {
+            return;
         } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, mediEvent.getLocalDateObj().getMillis(), pendingIntent);
+
+            int reminderCount = tinyDB.getInt(MainActivity.REMINDER_COUNTER) + 1;
+            tinyDB.putInt(MainActivity.REMINDER_COUNTER, reminderCount);
+
+            Intent intent = new Intent(ctx, MediNotificationService.class);
+            Bundle dataBundle = new Bundle();
+            dataBundle.putInt("eventID", mediEvent.eventID);
+            //dataBundle.putString("eventTitle", mediEvent.title);
+            dataBundle.putString("eventHost", mediEvent.hostName);
+            dataBundle.putString("eventURI", mediEvent.getPeriUri());
+            intent.putExtras(dataBundle);
+
+            AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pendingIntent = PendingIntent.getService(ctx, mediEvent.eventID, intent, 0);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, mediEvent.getLocalDateObj().getMillis(), pendingIntent);
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, mediEvent.getLocalDateObj().getMillis(), pendingIntent);
+            }
+
         }
 
-        Toast.makeText(ctx, "Reminder set!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ctx, "Reminder set!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void removeReminder(MediEvent mediEvent) {
+        Intent intent = new Intent(ctx, MediNotificationService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(ctx, mediEvent.eventID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent.cancel();
+
+        AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
     }
 }

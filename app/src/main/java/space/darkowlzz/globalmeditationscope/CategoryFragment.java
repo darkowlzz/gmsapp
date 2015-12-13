@@ -3,7 +3,6 @@ package space.darkowlzz.globalmeditationscope;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 
@@ -23,8 +23,10 @@ import java.util.ArrayList;
  */
 public class CategoryFragment extends Fragment {
 
-    private ArrayList<MediEvent> events;
+    private ArrayList<MediEvent> events, allEvents;
     TinyDB tinyDB;
+
+    RecyclerView rv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,9 +37,10 @@ public class CategoryFragment extends Fragment {
         ((MainActivity) getActivity()).setActionBarTitle(selectedCategory);
 
         tinyDB = new TinyDB(getContext());
-        events = (ArrayList) tinyDB.getListObject(MainActivity.ALL_EVENTS, MediEvent.class);
+        events = getEvents(selectedCategory);
+        allEvents = new ArrayList<>(events);
 
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv);
+        rv = (RecyclerView) view.findViewById(R.id.rv);
         rv.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -67,17 +70,49 @@ public class CategoryFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                events.clear();
+                for (MediEvent event : allEvents) {
+                    if (event.hostName.toLowerCase().startsWith(newText.toLowerCase())) {
+                        events.add(event);
+                    }
+                }
+
+                rv.getAdapter().notifyDataSetChanged();
+
                 return false;
             }
         });
 
+        /*
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    searchMenuItem.collapseActionView();
+                    //searchMenuItem.collapseActionView();
                 }
             }
         });
+        */
+    }
+
+    public ArrayList getEvents(String category) {
+        // Get category from string
+        MainActivity.Category targetCategory = MainActivity.getCategory(category);
+        ArrayList<MediEvent> events = (ArrayList) tinyDB.getListObject(MainActivity.ALL_EVENTS, MediEvent.class);
+
+        if (targetCategory == MainActivity.Category.ALL) {
+            return events;
+        }
+
+        ArrayList<MediEvent> filteredEvents = new ArrayList<>();
+
+        // Find events with the requred category and add them to the filteredEvents
+        for (MediEvent event : events) {
+            if (event.category == targetCategory) {
+                filteredEvents.add(event);
+            }
+        }
+
+        return filteredEvents;
     }
 }

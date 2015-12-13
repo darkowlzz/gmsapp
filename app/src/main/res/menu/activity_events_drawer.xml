@@ -4,8 +4,6 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_categories"
             android:title="Categories" />
-        <item android:id="@+id/nav_events"
-            android:title="Upcoming Events" />
         <item android:id="@+id/nav_favorites"
             android:title="Favorites" />
         <!--
@@ -20,8 +18,6 @@
         <menu>
             <item android:id="@+id/nav_about_gms"
                 android:title="Global Meditation Scope" />
-            <item android:id="@+id/nav_about_medi"
-                android:title="Meditation" />
             <item android:id="@+id/nav_intro"
                 android:title="App Intro" />
         </menu>

@@ -7,13 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -22,8 +22,10 @@ import java.util.ArrayList;
  */
 public class FavoritesFragment extends Fragment {
 
-    private ArrayList<MediEvent> favorites;
+    private ArrayList<MediEvent> favorites, allFavorites;
 
+    RecyclerView rv;
+    LinearLayout emptyView;
     TinyDB tinyDB;
 
     @Override
@@ -33,13 +35,19 @@ public class FavoritesFragment extends Fragment {
 
         tinyDB = new TinyDB(getActivity().getApplicationContext());
 
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv);
+        favorites = (ArrayList) tinyDB.getListObject(MainActivity.FAVORITE_EVENTS, MediEvent.class);
+        allFavorites = new ArrayList<>(favorites);
+
+        emptyView = (LinearLayout) view.findViewById(R.id.emptyView);
+
+        if (favorites.size() > 0) {
+            emptyView.setVisibility(View.GONE);
+        }
+        rv = (RecyclerView) view.findViewById(R.id.rv);
         rv.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
-
-        favorites = (ArrayList) tinyDB.getListObject(MainActivity.FAVORITE_EVENTS, MediEvent.class);
 
         RVAdapter adapter = new RVAdapter(favorites, MainActivity.FAVORITES_FRAGMENT);
         rv.setAdapter(adapter);
@@ -65,10 +73,20 @@ public class FavoritesFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                favorites.clear();
+                for (MediEvent event : allFavorites) {
+                    if (event.hostName.toLowerCase().startsWith(newText.toLowerCase())) {
+                        favorites.add(event);
+                    }
+                }
+
+                rv.getAdapter().notifyDataSetChanged();
+
                 return false;
             }
         });
 
+        /*
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -77,5 +95,6 @@ public class FavoritesFragment extends Fragment {
                 }
             }
         });
+        */
     }
 }
