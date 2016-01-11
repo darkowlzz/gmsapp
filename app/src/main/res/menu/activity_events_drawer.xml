@@ -3,23 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_categories"
-            android:title="Categories" />
+            android:title="@string/nav_categories" />
         <item android:id="@+id/nav_favorites"
-            android:title="Favorites" />
-        <!--
-        <item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"
-            android:title="Tools" />
-            -->
+            android:title="@string/nav_favorites" />
     </group>
 
-    <item android:title="About">
+    <item android:title="@string/section_about">
         <menu>
             <item android:id="@+id/nav_about_gms"
-                android:title="Global Meditation Scope" />
+                android:title="@string/about_gms" />
             <item android:id="@+id/nav_intro"
-                android:title="App Intro" />
+                android:title="@string/about_intro" />
         </menu>
     </item>
 

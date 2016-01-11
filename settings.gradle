@@ -1,1 +1,1 @@
-include ':app', ':gsheets2a'
+include ':app'

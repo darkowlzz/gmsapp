@@ -49,9 +49,9 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == (NUM_PAGES - 1)) {
-                    nextButton.setText("FINISH");
+                    nextButton.setText(getText(R.string.intro_finish));
                 } else {
-                    nextButton.setText("NEXT");
+                    nextButton.setText(getText(R.string.intro_next));
                 }
                 invalidateOptionsMenu();
             }

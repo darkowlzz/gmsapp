@@ -4,7 +4,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+
+    <!-- Snackbar Text -->
+    <string name="snackbar_updating">Updating data... please wait.</string>
+    <string name="snackbar_updated">Data updated!</string>
+    <string name="snackbar_network_error">Couldn\'t update the data. No Internet connection.</string>
+
 
     <!-- Categories Fragment -->
     <string name="categories_fragment_title">GMS Categories</string>
@@ -14,10 +19,6 @@
     <string name="category_4">HEAL</string>
     <string name="category_5">CREATE</string>
     <string name="category_6">ALL</string>
-
-
-    <!-- Events Fragment -->
-    <string name="events_fragment_title">Upcoming GMS Events</string>
 
 
     <!-- Favorites Fragment -->
@@ -49,6 +50,24 @@
     <string name="page6_desc">There\'s a lot to explore.</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Navigation Bar Strings -->
+    <string name="nav_header_gms">Global Meditation Scope</string>
+    <string name="nav_header_dates">December 12-13, 2015</string>
+
+    <string name="nav_categories">Categories</string>
+    <string name="nav_favorites">Favorites</string>
+
+    <string name="section_about">About</string>
+    <string name="about_gms">Global Meditation Scope</string>
+    <string name="about_intro">App Intro</string>
+
+
+    <!-- App Intro Strings -->
+    <string name="intro_skip">SKIP</string>
+    <string name="intro_next">NEXT</string>
+    <string name="intro_finish">FINISH</string>
+
+
+    <!-- Test -->
+    <string name="hello_world">Helo world</string>
 </resources>

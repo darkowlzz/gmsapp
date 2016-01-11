@@ -1,6 +1,7 @@
 package space.darkowlzz.globalmeditationscope;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
@@ -54,6 +55,7 @@ public class RVGridAdapter extends RecyclerView.Adapter<RVGridAdapter.CategoryVi
         Picasso.with(context)
                 .load(itemList.get(position).image)
                 .into(holder.categoryImage);
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import org.joda.time.DateTime;
@@ -21,11 +20,9 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.TimeZone;
 
 import space.darkowlzz.gsheets2a.GSheets2A;
 
@@ -41,6 +38,9 @@ public class MainActivity extends AppCompatActivity
     public static final String CATEGORIES_FRAGMENT = "CategoriesFragment";
     public static final String CATEGORY_FRAGMENT = "CategoryFragment";
     public static final String ABOUT_GMS = "AboutGMS";
+
+    public static final int GMS_YEAR = 2015;
+    public static final int GMS_MONTH = 12;
 
     public static enum Category {
         BREATHE, MOVE, LISTEN, HEAL, CREATE, ALL
@@ -71,10 +71,6 @@ public class MainActivity extends AppCompatActivity
 
         tinyDB = new TinyDB(getBaseContext());
 
-        if (tinyDB.getListObject(MainActivity.ALL_EVENTS, MediEvent.class).isEmpty()) {
-            //initializeData();
-        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -104,70 +100,31 @@ public class MainActivity extends AppCompatActivity
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             // download new data
-            updateSnackbar = Snackbar.make(toolbar, "Updating data... please wait.", Snackbar.LENGTH_INDEFINITE);
-            //GSheets2A gSheets2A = new GSheets2A("1JRhPZhaug2uQs23PpGZkQfdK-7fsN2-O6ATaz9oqQXg");
-            GSheets2A gSheets2A = new GSheets2A("1rE6mYXea5ZG_MOgQR7Jh1419-fUiH3sz4x35nvdfH9Q");
-            gSheets2A.getData(new GSheets2A.DataResult() {
+            updateSnackbar = Snackbar.make(toolbar, getText(R.string.snackbar_updating), Snackbar.LENGTH_INDEFINITE);
+            //GSheets2A gSheets2A = new GSheets2A("1rE6mYXea5ZG_MOgQR7Jh1419-fUiH3sz4x35nvdfH9Q", getApplicationContext());
+            GSheets2A gSheets2A = new GSheets2A("1R9obAG82n55mq2jFtWzxakJTcYD4C5qK5Zd2mH8LNcM", getApplicationContext());
+            gSheets2A.getData(MediEvent.class, new GSheets2A.DataResult() {
                 @Override
-                public void onReceiveData(JSONObject object) {
-                    processJson(object);
+                public void onReceiveData(ArrayList data) {
+                    ArrayList<MediEvent> me = data;
+                    events = new ArrayList<MediEvent>();
+
+                    for (MediEvent e : me) {
+                        events.add(e);
+                    }
+
+                    // Update favorites with the new events
+                    events = updateFavorites(events);
+                    tinyDB.putListObject(MainActivity.ALL_EVENTS, events);
+                    updateSnackbar.dismiss();
+                    Snackbar.make(toolbar, getText(R.string.snackbar_updated), Snackbar.LENGTH_SHORT).show();
                 }
             });
         } else {
             // Could check for new data.
-            updateSnackbar = Snackbar.make(toolbar, "Couldn't update the data. No Internet connection.", Snackbar.LENGTH_SHORT);
+            updateSnackbar = Snackbar.make(toolbar, getText(R.string.snackbar_network_error), Snackbar.LENGTH_SHORT);
         }
         updateSnackbar.show();
-    }
-
-    private void processJson(JSONObject object) {
-        events = new ArrayList<>();
-        MediEvent mediEvent;
-        //DateTime date = new DateTime(2015, 11, 28, 7, 35);
-
-        try {
-            JSONArray rows = object.getJSONArray("rows");
-
-            for (int r = 0; r < rows.length(); ++r) {
-                JSONObject row = rows.getJSONObject(r);
-                JSONArray columns = row.getJSONArray("c");
-
-                Integer position = columns.getJSONObject(0).getInt("v");
-                Integer dateOfMonth = columns.getJSONObject(1).getInt("v");
-                String timeOfDay = columns.getJSONObject(2).getString("f");
-                String name = columns.getJSONObject(3).getString("v");
-                String periHandle = columns.getJSONObject(4).getString("v");
-                String desc = columns.getJSONObject(5).getString("v");
-                Category category = getCategory(columns.getJSONObject(6).getString("v"));
-
-                // Strip any @ preceding the handle
-                if (periHandle.startsWith("@")) {
-                    periHandle = periHandle.substring(1);
-                }
-
-                DateTime time = getDateTime(dateOfMonth, timeOfDay);
-
-                mediEvent = new MediEvent(position, "Unknown", desc, name,
-                                          periHandle, periHandle, category);
-                mediEvent.setTime(time);
-                events.add(mediEvent);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Update favorites with the new events
-        events = updateFavorites(events);
-        tinyDB.putListObject(MainActivity.ALL_EVENTS, events);
-        updateSnackbar.dismiss();
-        Snackbar.make(toolbar, "Data updated!", Snackbar.LENGTH_SHORT).show();
-    }
-
-    protected DateTime getDateTime(Integer dateOfMonth, String timeOfDay) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("hh:mm a");
-        DateTime time = dateTimeFormatter.parseDateTime(timeOfDay);
-        time = new DateTime(2015, 12, dateOfMonth, time.getHourOfDay(), time.getMinuteOfHour());
-        return time;
     }
 
     public static Category getCategory(String category) {
