@@ -2,5 +2,4 @@
 
 spawn "./setup.sh"
 
-expect "Do you accept the license 'android-sdk-license-5be876d5' [y/n]:"
 send "y"
