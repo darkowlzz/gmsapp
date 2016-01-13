@@ -11,6 +11,8 @@ android:
 before_script:
   # Create and start emulator
   - android list targets
+  - android list sdk --all
+  - android update sdk -u -a -t 103
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - adb wait-for-device
