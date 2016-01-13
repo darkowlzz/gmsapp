@@ -1,5 +1,0 @@
-#!/usr/bin/expect
-
-spawn "./setup.sh"
-
-send "y"
