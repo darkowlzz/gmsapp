@@ -1,9 +1,12 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
+
+import space.darkowlzz.globalmeditationscope.R;
+import space.darkowlzz.globalmeditationscope.utils.TinyDB;
 
 /**
  * Created by sunny on 30/11/15.

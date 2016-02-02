@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.activities;
 
 import android.app.SearchManager;
 import android.content.Intent;

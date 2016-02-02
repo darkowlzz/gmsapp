@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import space.darkowlzz.globalmeditationscope.R;
 
 /**
  * Created by sunny on 30/11/15.

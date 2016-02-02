@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

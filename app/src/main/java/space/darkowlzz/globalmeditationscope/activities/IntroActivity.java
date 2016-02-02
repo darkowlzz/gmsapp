@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +14,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+
+import space.darkowlzz.globalmeditationscope.fragments.IntroSlidePageFragment;
+import space.darkowlzz.globalmeditationscope.R;
 
 /**
  * Created by sunny on 30/11/15.

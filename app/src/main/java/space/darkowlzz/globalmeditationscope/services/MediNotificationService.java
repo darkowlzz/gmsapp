@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.services;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+
+import space.darkowlzz.globalmeditationscope.R;
 
 /**
  * Created by sunny on 28/11/15.

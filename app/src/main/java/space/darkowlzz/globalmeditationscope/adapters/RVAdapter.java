@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.adapters;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -22,6 +22,10 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import space.darkowlzz.globalmeditationscope.services.MediNotificationService;
+import space.darkowlzz.globalmeditationscope.R;
+import space.darkowlzz.globalmeditationscope.utils.TinyDB;
+import space.darkowlzz.globalmeditationscope.activities.MainActivity;
 import space.darkowlzz.globalmeditationscope.model.MediEvent;
 
 /**
@@ -58,7 +62,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
         }
     }
 
-    RVAdapter(List<MediEvent> events, String fragmentName) {
+    public RVAdapter(List<MediEvent> events, String fragmentName) {
         this.events = events;
         this.fragmentName = fragmentName;
     }
