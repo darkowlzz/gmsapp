@@ -7,12 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+
+import space.darkowlzz.globalmeditationscope.model.MediEvent;
 
 /**
  * Created by sunny on 28/11/15.

@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
+import space.darkowlzz.globalmeditationscope.model.MediEvent;
+
 /**
  * Created by sunny on 25/11/15.
  */
