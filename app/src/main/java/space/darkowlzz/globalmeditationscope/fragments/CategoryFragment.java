@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.fragments;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -13,45 +13,44 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
+import space.darkowlzz.globalmeditationscope.R;
+import space.darkowlzz.globalmeditationscope.utils.TinyDB;
+import space.darkowlzz.globalmeditationscope.activities.MainActivity;
+import space.darkowlzz.globalmeditationscope.adapters.RVAdapter;
 import space.darkowlzz.globalmeditationscope.model.MediEvent;
 
 /**
- * Created by sunny on 25/11/15.
+ * Created by sunny on 26/11/15.
  */
-public class FavoritesFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
-    private ArrayList<MediEvent> favorites, allFavorites;
+    private ArrayList<MediEvent> events, allEvents;
+    TinyDB tinyDB;
 
     RecyclerView rv;
-    LinearLayout emptyView;
-    TinyDB tinyDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
+
         setHasOptionsMenu(true);
+        String selectedCategory = getArguments().getString(MainActivity.BUNDLE_ARG_SELECTED_CATEGORY);
+        ((MainActivity) getActivity()).setActionBarTitle(selectedCategory);
 
-        tinyDB = new TinyDB(getActivity().getApplicationContext());
+        tinyDB = new TinyDB(getContext());
+        events = getEvents(selectedCategory);
+        allEvents = new ArrayList<>(events);
 
-        favorites = (ArrayList) tinyDB.getListObject(MainActivity.FAVORITE_EVENTS, MediEvent.class);
-        allFavorites = new ArrayList<>(favorites);
-
-        emptyView = (LinearLayout) view.findViewById(R.id.emptyView);
-
-        if (favorites.size() > 0) {
-            emptyView.setVisibility(View.GONE);
-        }
         rv = (RecyclerView) view.findViewById(R.id.rv);
         rv.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
 
-        RVAdapter adapter = new RVAdapter(favorites, MainActivity.FAVORITES_FRAGMENT);
+        RVAdapter adapter = new RVAdapter(events, MainActivity.CATEGORY_FRAGMENT);
         rv.setAdapter(adapter);
 
         return view;
@@ -75,10 +74,10 @@ public class FavoritesFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                favorites.clear();
-                for (MediEvent event : allFavorites) {
+                events.clear();
+                for (MediEvent event : allEvents) {
                     if (event.hostName.toLowerCase().startsWith(newText.toLowerCase())) {
-                        favorites.add(event);
+                        events.add(event);
                     }
                 }
 
@@ -93,10 +92,31 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    searchMenuItem.collapseActionView();
+                    //searchMenuItem.collapseActionView();
                 }
             }
         });
         */
+    }
+
+    public ArrayList getEvents(String category) {
+        // Get category from string
+        MainActivity.Category targetCategory = MainActivity.getCategory(category);
+        ArrayList<MediEvent> events = (ArrayList) tinyDB.getListObject(MainActivity.ALL_EVENTS, MediEvent.class);
+
+        if (targetCategory == MainActivity.Category.ALL) {
+            return events;
+        }
+
+        ArrayList<MediEvent> filteredEvents = new ArrayList<>();
+
+        // Find events with the requred category and add them to the filteredEvents
+        for (MediEvent event : events) {
+            if (event.category == targetCategory) {
+                filteredEvents.add(event);
+            }
+        }
+
+        return filteredEvents;
     }
 }

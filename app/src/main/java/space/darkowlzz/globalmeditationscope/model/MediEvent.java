@@ -1,18 +1,14 @@
 package space.darkowlzz.globalmeditationscope.model;
 
-import android.text.format.Time;
-import android.util.Log;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.TimeZone;
 
-import space.darkowlzz.globalmeditationscope.MainActivity;
-import space.darkowlzz.globalmeditationscope.MainActivity.Category;
+import space.darkowlzz.globalmeditationscope.activities.MainActivity;
+import space.darkowlzz.globalmeditationscope.activities.MainActivity.Category;
 import space.darkowlzz.gsheets2a.GSheets2A;
 
 /**

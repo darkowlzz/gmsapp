@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import space.darkowlzz.globalmeditationscope.R;
+import space.darkowlzz.globalmeditationscope.adapters.RVGridAdapter;
 import space.darkowlzz.globalmeditationscope.model.MediCategory;
 
 /**

@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,11 @@ import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 
+import space.darkowlzz.globalmeditationscope.fragments.AboutGmsFragment;
+import space.darkowlzz.globalmeditationscope.fragments.CategoriesFragment;
+import space.darkowlzz.globalmeditationscope.fragments.FavoritesFragment;
+import space.darkowlzz.globalmeditationscope.R;
+import space.darkowlzz.globalmeditationscope.utils.TinyDB;
 import space.darkowlzz.globalmeditationscope.model.MediEvent;
 import space.darkowlzz.gsheets2a.GSheets2A;
 

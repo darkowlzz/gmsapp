@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.receivers;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -12,6 +12,9 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 
+import space.darkowlzz.globalmeditationscope.services.MediNotificationService;
+import space.darkowlzz.globalmeditationscope.utils.TinyDB;
+import space.darkowlzz.globalmeditationscope.activities.MainActivity;
 import space.darkowlzz.globalmeditationscope.model.MediEvent;
 
 /**

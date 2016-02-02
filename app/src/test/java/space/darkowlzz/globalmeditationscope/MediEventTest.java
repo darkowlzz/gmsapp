@@ -8,6 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 
+import space.darkowlzz.globalmeditationscope.activities.MainActivity;
 import space.darkowlzz.globalmeditationscope.model.MediEvent;
 
 import static org.hamcrest.CoreMatchers.is;
