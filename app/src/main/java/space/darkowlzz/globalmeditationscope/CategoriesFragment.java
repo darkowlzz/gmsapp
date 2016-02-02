@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import space.darkowlzz.globalmeditationscope.model.MediCategory;
+
 /**
  * Created by sunny on 26/11/15.
  */

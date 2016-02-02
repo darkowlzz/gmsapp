@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.model;
 
 import android.text.format.Time;
 import android.util.Log;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import space.darkowlzz.globalmeditationscope.MainActivity;
 import space.darkowlzz.globalmeditationscope.MainActivity.Category;
 import space.darkowlzz.gsheets2a.GSheets2A;
 
@@ -18,15 +19,15 @@ import space.darkowlzz.gsheets2a.GSheets2A;
  * Created by sunny on 24/11/15.
  */
 public class MediEvent implements GSheets2A.DataObject {
-    String title;
-    String description;
-    String hostName;
-    String periHandle;
-    String twitterHandle;
-    Category category;
-    Integer year, month, day, hour, minute;
-    boolean favorite = false;
-    Integer eventID;
+    public String title;
+    public String description;
+    public String hostName;
+    public String periHandle;
+    public String twitterHandle;
+    public Category category;
+    public Integer year, month, day, hour, minute;
+    public boolean favorite = false;
+    public Integer eventID;
 
     /*
     MediEvent(Integer ID, String title, String description, String hostName, String periHandle,

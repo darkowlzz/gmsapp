@@ -1,4 +1,4 @@
-package space.darkowlzz.globalmeditationscope;
+package space.darkowlzz.globalmeditationscope.model;
 
 import android.graphics.drawable.Drawable;
 
@@ -6,10 +6,10 @@ import android.graphics.drawable.Drawable;
  * Created by sunny on 26/11/15.
  */
 public class MediCategory {
-    String name;
-    int image;
+    public String name;
+    public int image;
 
-    MediCategory(String name, int image) {
+    public MediCategory(String name, int image) {
         this.name = name;
         this.image = image;
     }

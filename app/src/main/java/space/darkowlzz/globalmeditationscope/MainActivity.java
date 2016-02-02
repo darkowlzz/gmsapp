@@ -18,12 +18,10 @@ import android.view.MenuItem;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-import java.util.TimeZone;
 
+import space.darkowlzz.globalmeditationscope.model.MediEvent;
 import space.darkowlzz.gsheets2a.GSheets2A;
 
 public class MainActivity extends AppCompatActivity
