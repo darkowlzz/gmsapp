@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import space.darkowlzz.globalmeditationscope.R;
 import space.darkowlzz.globalmeditationscope.utils.TinyDB;
 import space.darkowlzz.globalmeditationscope.activities.MainActivity;
@@ -30,13 +32,17 @@ public class FavoritesFragment extends Fragment {
 
     private ArrayList<MediEvent> favorites, allFavorites;
 
-    RecyclerView rv;
-    LinearLayout emptyView;
+    @Bind(R.id.rv) RecyclerView rv;
+    @Bind(R.id.emptyView) LinearLayout emptyView;
+
     TinyDB tinyDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+        // Bind butterknife to the fragment view
+        ButterKnife.bind(this, view);
+
         setHasOptionsMenu(true);
 
         tinyDB = new TinyDB(getActivity().getApplicationContext());
@@ -44,12 +50,9 @@ public class FavoritesFragment extends Fragment {
         favorites = (ArrayList) tinyDB.getListObject(MainActivity.FAVORITE_EVENTS, MediEvent.class);
         allFavorites = new ArrayList<>(favorites);
 
-        emptyView = (LinearLayout) view.findViewById(R.id.emptyView);
-
         if (favorites.size() > 0) {
             emptyView.setVisibility(View.GONE);
         }
-        rv = (RecyclerView) view.findViewById(R.id.rv);
         rv.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());

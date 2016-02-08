@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import space.darkowlzz.globalmeditationscope.R;
 import space.darkowlzz.globalmeditationscope.activities.MainActivity;
 
@@ -35,6 +37,11 @@ public class AboutGmsFragment extends Fragment {
     private String mParam2;
 
     TextView main;
+
+    @Bind(R.id.gms_logo) ImageView logo;
+    @Bind(R.id.web_link) ImageView webLink;
+    @Bind(R.id.peri_link) ImageView periLink;
+    @Bind(R.id.twitter_link) ImageView twitterLink;
 
     //private OnFragmentInteractionListener mListener;
 
@@ -75,14 +82,12 @@ public class AboutGmsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_about_gms, container, false);
 
-        ImageView logo = (ImageView) v.findViewById(R.id.gms_logo);
+        // Bind butterknife to fragment view
+        ButterKnife.bind(this, v);
+
         Picasso.with(getContext())
                 .load(R.drawable.gms_logo_large)
                 .into(logo);
-
-        ImageView webLink = (ImageView) v.findViewById(R.id.web_link);
-        ImageView periLink = (ImageView) v.findViewById(R.id.peri_link);
-        ImageView twitterLink = (ImageView) v.findViewById(R.id.twitter_link);
 
         Picasso.with(getContext())
                 .load(R.drawable.ic_globe)

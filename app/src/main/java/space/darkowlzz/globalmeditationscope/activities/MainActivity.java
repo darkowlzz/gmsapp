@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     public static final int GMS_YEAR = 2015;
     public static final int GMS_MONTH = 12;
 
-    public static enum Category {
+    public enum Category {
         BREATHE, MOVE, LISTEN, HEAL, CREATE, ALL
     };
 

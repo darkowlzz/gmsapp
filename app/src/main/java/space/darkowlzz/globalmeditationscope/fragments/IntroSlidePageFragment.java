@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import space.darkowlzz.globalmeditationscope.R;
 
 /**
@@ -19,6 +21,11 @@ import space.darkowlzz.globalmeditationscope.R;
 public class IntroSlidePageFragment extends Fragment {
 
     public static final String ARG_PAGE = "page";
+
+    @Bind(R.id.content) ScrollView scrollView;
+    @Bind(R.id.text1) TextView text1;
+    @Bind(R.id.description) TextView description;
+    @Bind(R.id.intro_image) ImageView introImage;
 
     private int mPageNumber;
 
@@ -43,7 +50,10 @@ public class IntroSlidePageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_intro_slide_page, container, false);
-        final ScrollView scrollView = (ScrollView) rootView.findViewById(R.id.content);
+
+        ButterKnife.bind(this, rootView);
+
+        //final ScrollView scrollView = (ScrollView) rootView.findViewById(R.id.content);
         String title = null;
         String desc = null;
         Drawable image = null;
@@ -116,9 +126,9 @@ public class IntroSlidePageFragment extends Fragment {
 
         }
 
-        ((TextView) rootView.findViewById(R.id.text1)).setText(title);
-        ((TextView) rootView.findViewById(R.id.description)).setText(desc);
-        ((ImageView) rootView.findViewById(R.id.intro_image)).setImageDrawable(image);
+        text1.setText(title);
+        description.setText(desc);
+        introImage.setImageDrawable(image);
 
         return rootView;
     }
