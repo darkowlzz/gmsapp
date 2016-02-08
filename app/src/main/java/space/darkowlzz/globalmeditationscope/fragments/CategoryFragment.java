@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import space.darkowlzz.globalmeditationscope.R;
 import space.darkowlzz.globalmeditationscope.utils.TinyDB;
 import space.darkowlzz.globalmeditationscope.activities.MainActivity;
@@ -30,11 +32,14 @@ public class CategoryFragment extends Fragment {
     private ArrayList<MediEvent> events, allEvents;
     TinyDB tinyDB;
 
-    RecyclerView rv;
+    @Bind(R.id.rv) RecyclerView rv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
+
+        // Bind ButterKnife to fragment view
+        ButterKnife.bind(this, view);
 
         setHasOptionsMenu(true);
         String selectedCategory = getArguments().getString(MainActivity.BUNDLE_ARG_SELECTED_CATEGORY);
@@ -44,7 +49,6 @@ public class CategoryFragment extends Fragment {
         events = getEvents(selectedCategory);
         allEvents = new ArrayList<>(events);
 
-        rv = (RecyclerView) view.findViewById(R.id.rv);
         rv.setHasFixedSize(true);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());

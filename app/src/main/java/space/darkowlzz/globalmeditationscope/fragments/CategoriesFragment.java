@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
 import space.darkowlzz.globalmeditationscope.R;
 import space.darkowlzz.globalmeditationscope.adapters.RVGridAdapter;
 import space.darkowlzz.globalmeditationscope.model.MediCategory;
@@ -23,6 +24,8 @@ public class CategoriesFragment extends Fragment {
 
     private ArrayList<MediCategory> categories;
 
+    @Bind(R.id.rv) RecyclerView rv;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories , container, false);
@@ -31,7 +34,7 @@ public class CategoriesFragment extends Fragment {
         initializeData();
         GridLayoutManager glm = new GridLayoutManager(getContext(), 2);
 
-        RecyclerView rv = (RecyclerView) view.findViewById(R.id.rv);
+        rv = (RecyclerView) view.findViewById(R.id.rv);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(glm);
 
